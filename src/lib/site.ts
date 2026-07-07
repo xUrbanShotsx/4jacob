@@ -1,3 +1,4 @@
+import { INSIGHTS_MODULES } from "@/lib/insights-modules";
 import { PEOPLE_TRAINING_MODULES } from "@/lib/people-training-modules";
 import { RISK_COMPLIANCE_MODULES } from "@/lib/risk-compliance-modules";
 import { SAFETY_MODULES } from "@/lib/safety-modules";
@@ -25,6 +26,7 @@ export const SITE_ROUTES = [
   ...SAFETY_MODULES.map((m) => `/docs/safety/${m.slug}`),
   ...PEOPLE_TRAINING_MODULES.map((m) => `/docs/people-training/${m.slug}`),
   ...RISK_COMPLIANCE_MODULES.map((m) => `/docs/risk-compliance/${m.slug}`),
+  ...INSIGHTS_MODULES.map((m) => `/docs/insights/${m.slug}`),
   "/changelog",
   "/contact",
   "/newsletter",

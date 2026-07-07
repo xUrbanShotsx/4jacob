@@ -22,11 +22,10 @@ type Group = { heading: string; items: Item[] };
 const docs = (names: string[], slug: string): Item[] =>
   names.map((name) => ({ name, href: `/docs#${slug}` }));
 
-/** Safety, People & training and Risk & compliance have a real brief page
-    per module (unlike the remaining groups, which still land on a shared
-    /docs anchor) — see `src/lib/safety-modules.ts`,
-    `src/lib/people-training-modules.ts` and
-    `src/lib/risk-compliance-modules.ts`. */
+/** Every submodule now has a real brief page — see `src/lib/safety-modules.ts`,
+    `src/lib/people-training-modules.ts`, `src/lib/risk-compliance-modules.ts`
+    and `src/lib/insights-modules.ts`. Operations is the one remaining group
+    still landing on the shared /docs anchor. */
 const SAFETY_ITEMS: Item[] = [
   { name: "Incidents", href: "/docs/safety/incidents" },
   { name: "Actions", href: "/docs/safety/actions" },
@@ -54,6 +53,12 @@ const RISK_COMPLIANCE_ITEMS: Item[] = [
   { name: "Evidence", href: "/docs/risk-compliance/evidence" },
 ];
 
+const INSIGHTS_ITEMS: Item[] = [
+  { name: "KPIs", href: "/docs/insights/kpis" },
+  { name: "Reports", href: "/docs/insights/reports" },
+  { name: "Dashboards", href: "/docs/insights/dashboards" },
+];
+
 /* ── Solutions taxonomy (modules → submodules) ────────────────────────────── */
 const PRODUCT_GROUPS: Group[] = [
   {
@@ -75,7 +80,7 @@ const PRODUCT_GROUPS: Group[] = [
     heading: "Risk & compliance",
     items: RISK_COMPLIANCE_ITEMS,
   },
-  { heading: "Insights", items: docs(["KPIs", "Reports", "Dashboards"], "insights") },
+  { heading: "Insights", items: INSIGHTS_ITEMS },
 ];
 
 const PRODUCT_COLUMNS: Group[][] = [
