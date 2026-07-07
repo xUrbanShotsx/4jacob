@@ -1,7 +1,6 @@
 import { ArrowRight, Check, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BlueprintGenerator } from "@/components/blueprints/blueprint-generator";
 import type { Tone } from "@/components/graphs";
 import { FadeUp, Magnetic, Stagger } from "@/components/motion";
 import { PageHero } from "@/components/page-hero";
@@ -44,6 +43,16 @@ const TONE_CHECK: Record<Tone, string> = {
   success: "text-(--badge-green-text)",
   info: "text-(--badge-blue-text)",
   danger: "text-destructive-text",
+};
+
+// Light-mode accent-text (bright yellow) is illegible on the pale accent-bg, so
+// the primary clause tag uses ink in light and yellow only in dark — the same
+// theme-adaptive fix used on the pricing chips and primary badge.
+const TONE_TAG: Record<Tone, string> = {
+  primary: "border-accent-border bg-accent-bg text-text dark:text-accent-text",
+  success: "border-(--badge-green-bg) bg-(--badge-green-bg) text-(--badge-green-text)",
+  info: "border-(--badge-blue-bg) bg-(--badge-blue-bg) text-(--badge-blue-text)",
+  danger: "border-destructive-border bg-destructive-bg text-destructive-text",
 };
 
 export default function BlueprintsPage() {
@@ -159,14 +168,49 @@ export default function BlueprintsPage() {
                 </p>
               </FadeUp>
 
-              {/* Generator + what's generated */}
+              {/* Clause map + what's generated */}
               <div className="mt-10 grid items-start gap-px border border-border bg-border shadow-black/5 shadow-xl lg:grid-cols-5 dark:shadow-black/20">
                 <FadeUp className={cn("flex bg-bg p-5 sm:p-6 lg:col-span-3", flip && "lg:order-2")}>
-                  <BlueprintGenerator
-                    code={standard.code}
-                    tone={standard.tone}
-                    document={standard.document}
-                  />
+                  <div className="flex w-full flex-col overflow-hidden border border-border bg-bg">
+                    <div className="flex items-center justify-between gap-2 border-border border-b bg-bg-secondary px-4 py-3">
+                      <span className="flex items-center gap-1.5 font-mono text-[0.65rem] text-text-tertiary">
+                        <Sparkles className={cn("size-3", TONE_ICON[standard.tone])} />
+                        {standard.code.toLowerCase()} · clause map
+                      </span>
+                      <span className="font-mono text-[0.6rem] text-text-tertiary uppercase tracking-wider">
+                        Sample
+                      </span>
+                    </div>
+                    <ul className="flex flex-col">
+                      {standard.document.map((section) => (
+                        <li
+                          key={section.clause}
+                          className="flex gap-3 border-border border-b p-4 last:border-b-0"
+                        >
+                          <span
+                            className={cn(
+                              "mt-0.5 shrink-0 border px-1.5 py-0.5 font-mono text-[0.6rem] tabular-nums",
+                              TONE_TAG[standard.tone],
+                            )}
+                          >
+                            {section.clause}
+                          </span>
+                          <div>
+                            <p className="font-medium text-[13.5px] text-text tracking-tight">
+                              {section.heading}
+                            </p>
+                            <p className="mt-0.5 text-[12.5px] text-text-tertiary leading-relaxed">
+                              {section.body}
+                            </p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="border-border border-t px-4 py-3 font-mono text-[0.6rem] text-text-tertiary leading-relaxed">
+                      Blueprints maps every requirement clause of {standard.code} to the evidence
+                      already in your Briesa program — this is a sample.
+                    </p>
+                  </div>
                 </FadeUp>
 
                 <FadeUp
