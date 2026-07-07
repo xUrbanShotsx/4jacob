@@ -22,48 +22,57 @@ export const metadata: Metadata = {
   alternates: { canonical: "/docs" },
 };
 
-const SECTIONS: { title: string; body: string; icon: LucideIcon }[] = [
+const SECTIONS: { slug: string; title: string; body: string; icon: LucideIcon }[] = [
   {
+    slug: "getting-started",
     title: "Getting started",
     body: "Set up your organisation, invite your team and connect your first site in under an hour.",
     icon: Rocket,
   },
   {
+    slug: "safety",
     title: "Safety",
     body: "Log incidents, manage hazards and run investigations across every site and contractor.",
     icon: ShieldAlert,
   },
   {
+    slug: "risk-compliance",
     title: "Risk & compliance",
     body: "Build risk registers, schedule controls and keep your ISO and WHS obligations audit-ready.",
     icon: ClipboardCheck,
   },
   {
+    slug: "people-training",
     title: "People & training",
     body: "Manage workers, contractors and visitors, and run the bundled LMS with compliance gates.",
     icon: Users,
   },
   {
+    slug: "governance",
     title: "Governance",
     body: "Document policies, track actions and give the board a single line of sight over assurance.",
     icon: Landmark,
   },
   {
+    slug: "operations-contractors",
     title: "Operations & contractors",
     body: "Coordinate day-to-day work, induct contractors and verify competencies before site access.",
     icon: BookOpen,
   },
   {
+    slug: "insights",
     title: "Insights",
     body: "Track leading and lagging indicators with dashboards built for Australian reporting.",
     icon: BarChart3,
   },
   {
+    slug: "integrations-api",
     title: "Integrations & API",
     body: "Connect Briesa to your existing systems with webhooks, SSO and the REST API.",
     icon: Plug,
   },
   {
+    slug: "release-notes",
     title: "Release notes",
     body: "Follow what's new across every module — fixes, improvements and new capability.",
     icon: GraduationCap,
@@ -92,7 +101,8 @@ export default function DocsPage() {
                 <FadeUp key={s.title} asChild>
                   <Link
                     href="#"
-                    className="group flex flex-col gap-3 bg-bg p-6 transition-colors hover:bg-bg-secondary"
+                    id={s.slug}
+                    className="group flex scroll-mt-32 flex-col gap-3 bg-bg p-6 transition-colors hover:bg-bg-secondary"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex size-9 items-center justify-center border border-border bg-bg-secondary text-text-secondary transition-colors group-hover:border-border-strong group-hover:text-text">

@@ -15,42 +15,44 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 type Item = { name: string; href: string };
 type Group = { heading: string; items: Item[] };
 
-const docs = (names: string[]): Item[] => names.map((name) => ({ name, href: "/docs" }));
+/** Each submodule links to its parent topic's card on /docs — the docs page
+    is still being written, so there's no distinct page per submodule yet,
+    but at least the destination is contextual rather than the same generic
+    landing every time. See the matching `slug` in `src/app/docs/page.tsx`. */
+const docs = (names: string[], slug: string): Item[] =>
+  names.map((name) => ({ name, href: `/docs#${slug}` }));
 
 /* ── Solutions taxonomy (modules → submodules) ────────────────────────────── */
 const PRODUCT_GROUPS: Group[] = [
   {
     heading: "Safety",
-    items: docs([
-      "Incidents",
-      "Actions",
-      "Toolbox",
-      "Prestart",
-      "SWMS",
-      "Permits",
-      "Safety inspections",
-    ]),
+    items: docs(
+      ["Incidents", "Actions", "Toolbox", "Prestart", "SWMS", "Permits", "Safety inspections"],
+      "safety",
+    ),
   },
   {
     heading: "People & training",
-    items: docs([
-      "Inductions",
-      "Contractors",
-      "Health & wellbeing",
-      "Return to work",
-      "Courses",
-      "Records",
-    ]),
+    items: docs(
+      ["Inductions", "Contractors", "Health & wellbeing", "Return to work", "Courses", "Records"],
+      "people-training",
+    ),
   },
   {
     heading: "Operations",
-    items: docs(["Safe work procedures", "Site access", "Work planning", "Defect reporting"]),
+    items: docs(
+      ["Safe work procedures", "Site access", "Work planning", "Defect reporting"],
+      "operations-contractors",
+    ),
   },
   {
     heading: "Risk & compliance",
-    items: docs(["Hazard register", "Risk assessments", "Controls", "Audits", "Evidence"]),
+    items: docs(
+      ["Hazard register", "Risk assessments", "Controls", "Audits", "Evidence"],
+      "risk-compliance",
+    ),
   },
-  { heading: "Insights", items: docs(["KPIs", "Reports", "Dashboards"]) },
+  { heading: "Insights", items: docs(["KPIs", "Reports", "Dashboards"], "insights") },
 ];
 
 const PRODUCT_COLUMNS: Group[][] = [
