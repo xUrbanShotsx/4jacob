@@ -10,6 +10,7 @@ import { NumberTicker } from "@/components/number-ticker";
 import { SectionHeading } from "@/components/section-heading";
 import { SmartLink } from "@/components/smart-link";
 import {
+  Badge,
   buttonVariants,
   cn,
   Dialog,
@@ -20,6 +21,10 @@ import {
   DialogTitle,
 } from "@/components/ui";
 import { DEMO_URL } from "@/lib/site";
+
+/** Capacity rows that draw on the AI toolbox specifically — colour-coded to
+    connect them to that feature, not applied for decoration. */
+const AI_METRIC_LABELS = new Set(["AI generations", "Token cap", "Blocks"]);
 
 type Tier = {
   name: string;
@@ -122,25 +127,35 @@ function CapacityTable({
         <Gauge className="size-2.5" /> Capacity
       </p>
       <ul className="flex flex-col gap-2.5">
-        {specs.map(([label, value]) => (
-          <li key={label} className="flex items-center justify-between gap-3 text-[12.5px]">
-            {label === "Blocks" ? (
-              <button
-                type="button"
-                onClick={onExplainBlocks}
-                className="group inline-flex items-center gap-1 text-text-secondary transition-colors hover:text-text"
+        {specs.map(([label, value]) => {
+          const isAiMetric = AI_METRIC_LABELS.has(label);
+          return (
+            <li key={label} className="flex items-center justify-between gap-3 text-[12.5px]">
+              {label === "Blocks" ? (
+                <button
+                  type="button"
+                  onClick={onExplainBlocks}
+                  className="group inline-flex items-center gap-1 text-text-secondary transition-colors hover:text-text"
+                >
+                  {label}
+                  <HelpCircle className="size-3 text-text-tertiary transition-colors group-hover:text-text" />
+                </button>
+              ) : (
+                <span className="text-text-secondary">{label}</span>
+              )}
+              <span
+                className={cn(
+                  "inline-flex shrink-0 items-center border px-1.5 py-0.5 font-mono text-[0.6rem] tabular-nums",
+                  isAiMetric
+                    ? "border-accent-border bg-accent-bg text-text dark:text-accent-text"
+                    : "border-border bg-bg-secondary text-text",
+                )}
               >
-                {label}
-                <HelpCircle className="size-3 text-text-tertiary transition-colors group-hover:text-text" />
-              </button>
-            ) : (
-              <span className="text-text-secondary">{label}</span>
-            )}
-            <span className="inline-flex shrink-0 items-center border border-border bg-bg-secondary px-1.5 py-0.5 font-mono text-[0.6rem] text-text tabular-nums">
-              {value}
-            </span>
-          </li>
-        ))}
+                {value}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
@@ -202,29 +217,51 @@ export function PricingContent() {
               <motion.div
                 key={t.name}
                 variants={fadeUpItem}
-                className="relative flex flex-col bg-bg"
+                className={cn(
+                  "relative flex flex-col border bg-bg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-18px_var(--accent-text)]",
+                  t.featured
+                    ? "border-border-strong dark:border-accent-text"
+                    : "border-transparent hover:border-border-hover dark:hover:border-accent-text",
+                )}
               >
                 {t.featured && (
-                  <span aria-hidden className="absolute inset-x-0 top-0 z-10 h-0.5 bg-text" />
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 z-10 h-1 bg-border-strong dark:bg-accent-text"
+                  />
                 )}
                 <div className="flex flex-col p-6">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-[0.6rem] text-text-tertiary uppercase tracking-wider">
                       {t.name}
                     </span>
-                    {t.featured && (
-                      <span className="border border-border bg-bg-secondary px-1.5 py-0.5 font-mono text-[0.55rem] text-text uppercase tracking-wider">
-                        Most popular
-                      </span>
-                    )}
+                    {t.featured && <Badge variant="primary">Most popular</Badge>}
                   </div>
                   <p className="mt-4 flex items-baseline gap-1.5">
-                    <span className="text-4xl tracking-tighter md:text-5xl">{t.price}</span>
+                    <span
+                      className={cn(
+                        "text-4xl tracking-tighter md:text-5xl",
+                        t.featured && "dark:text-accent-text",
+                      )}
+                    >
+                      {t.price}
+                    </span>
                     <span className="font-mono text-[0.65rem] text-text-tertiary">/ month</span>
                   </p>
                   <p className="mt-3 text-[13px] text-text-tertiary leading-relaxed">{t.desc}</p>
                 </div>
                 <CapacityTable specs={t.specs} onExplainBlocks={() => setBlocksOpen(true)} />
+                <div className="mt-auto p-6 pt-5">
+                  <Link
+                    href={`/waitlist?plan=${t.name.toLowerCase()}`}
+                    className={cn(
+                      buttonVariants({ variant: t.featured ? "primary" : "secondary", size: "lg" }),
+                      "w-full",
+                    )}
+                  >
+                    Sign up — {t.name}
+                  </Link>
+                </div>
               </motion.div>
             ))}
           </Stagger>
