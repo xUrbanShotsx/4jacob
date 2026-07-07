@@ -20,10 +20,6 @@ export type BlueprintStandard = {
   icon: LucideIcon;
   tone: Tone;
   lede: string;
-  /** Certification readiness — % of clauses evidence already covers. */
-  coverage: number;
-  /** Total requirement clauses in the standard (used in the readiness panel). */
-  clauseCount: number;
   points: string[];
   /** Sample clause-mapped sections the interactive generator reveals. */
   document: ClauseDoc[];
@@ -37,8 +33,6 @@ export const BLUEPRINT_STANDARDS: BlueprintStandard[] = [
     icon: BadgeCheck,
     tone: "primary",
     lede: "Clause-mapped ISO 9001 documentation, generated from your live operational data — not written from a template.",
-    coverage: 92,
-    clauseCount: 10,
     points: [
       "Quality manual, procedures and process maps generated from how your organisation actually operates.",
       "Every clause mapped to the evidence already in Briesa — audits, controls, corrective actions.",
@@ -75,8 +69,6 @@ export const BLUEPRINT_STANDARDS: BlueprintStandard[] = [
     icon: Leaf,
     tone: "success",
     lede: "Environmental management system documentation built from your real environmental aspects and controls.",
-    coverage: 88,
-    clauseCount: 10,
     points: [
       "Environmental aspects and impacts register generated from your site and activity data.",
       "Legal and other requirements register kept current against Australian environmental law.",
@@ -113,8 +105,6 @@ export const BLUEPRINT_STANDARDS: BlueprintStandard[] = [
     icon: HardHat,
     tone: "danger",
     lede: "Occupational health and safety management system documentation, built from the safety program you already run in Briesa.",
-    coverage: 96,
-    clauseCount: 10,
     points: [
       "OH&S policy, objectives and management programs generated from your live safety data.",
       "Hazard identification and risk assessment register mapped straight to your controls and incidents.",

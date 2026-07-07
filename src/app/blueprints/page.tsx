@@ -2,7 +2,7 @@ import { ArrowRight, Check, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BlueprintGenerator } from "@/components/blueprints/blueprint-generator";
-import { ComplianceRing, type Tone } from "@/components/graphs";
+import type { Tone } from "@/components/graphs";
 import { FadeUp, Magnetic, Stagger } from "@/components/motion";
 import { PageHero } from "@/components/page-hero";
 import { SmartLink } from "@/components/smart-link";
@@ -71,8 +71,7 @@ export default function BlueprintsPage() {
         </div>
       </PageHero>
 
-      {/* Standards overview — clickable cards that jump to each section, with a
-          live certification-readiness ring per standard. */}
+      {/* Standards overview — clickable cards that jump to each standard's section. */}
       <section className="pb-4">
         <div className="web-container">
           <Stagger
@@ -87,19 +86,25 @@ export default function BlueprintsPage() {
                   <a
                     href={`#${s.slug}`}
                     className={cn(
-                      "group flex items-center gap-5 border border-transparent bg-bg p-6 transition-all duration-300 hover:-translate-y-1",
+                      "group flex items-center gap-4 border border-transparent bg-bg p-6 transition-all duration-300 hover:-translate-y-1",
                       TONE_GLOW[s.tone],
                     )}
                   >
-                    <ComplianceRing value={s.coverage} tone={s.tone} size={76} label="Ready" />
+                    <div
+                      className={cn(
+                        "flex size-12 shrink-0 items-center justify-center border",
+                        TONE_BORDER_BG[s.tone],
+                      )}
+                    >
+                      <Icon
+                        className={cn(
+                          "size-5 transition-transform duration-300 group-hover:scale-110",
+                          TONE_ICON[s.tone],
+                        )}
+                      />
+                    </div>
                     <div className="min-w-0">
-                      <span className="flex items-center gap-1.5 font-mono text-[0.6rem] text-text-tertiary uppercase tracking-wider">
-                        <Icon
-                          className={cn(
-                            "size-3 transition-transform duration-300 group-hover:scale-110",
-                            TONE_ICON[s.tone],
-                          )}
-                        />
+                      <span className="font-mono text-[0.6rem] text-text-tertiary uppercase tracking-wider">
                         {s.code}
                       </span>
                       <p className="mt-1.5 text-[15px] text-text leading-tight tracking-tight">
@@ -154,7 +159,7 @@ export default function BlueprintsPage() {
                 </p>
               </FadeUp>
 
-              {/* Generator + readiness */}
+              {/* Generator + what's generated */}
               <div className="mt-10 grid items-start gap-px border border-border bg-border shadow-black/5 shadow-xl lg:grid-cols-5 dark:shadow-black/20">
                 <FadeUp className={cn("flex bg-bg p-5 sm:p-6 lg:col-span-3", flip && "lg:order-2")}>
                   <BlueprintGenerator
@@ -170,41 +175,25 @@ export default function BlueprintsPage() {
                     flip && "lg:order-1",
                   )}
                 >
-                  <div className="flex items-center gap-4">
-                    <ComplianceRing
-                      value={standard.coverage}
-                      tone={standard.tone}
-                      size={92}
-                      label="Audit ready"
-                    />
-                    <div>
-                      <p className="font-mono text-[0.6rem] text-text-tertiary uppercase tracking-wider">
-                        Certification readiness
-                      </p>
-                      <p className="mt-1.5 text-sm text-text-secondary leading-relaxed">
-                        Evidence in Briesa already covers{" "}
-                        <span className={cn("font-medium", TONE_ICON[standard.tone])}>
-                          {Math.round((standard.coverage / 100) * standard.clauseCount)} of{" "}
-                          {standard.clauseCount}
-                        </span>{" "}
-                        requirement clauses.
-                      </p>
-                    </div>
+                  <div>
+                    <p className="flex items-center gap-1.5 font-mono text-[0.6rem] text-text-tertiary uppercase tracking-wider">
+                      <Sparkles className={cn("size-3", TONE_ICON[standard.tone])} /> What's
+                      generated
+                    </p>
+                    <ul className="mt-4 flex flex-col gap-2.5">
+                      {standard.points.map((point) => (
+                        <li
+                          key={point}
+                          className="flex gap-2.5 text-[13px] text-text-secondary leading-relaxed"
+                        >
+                          <Check
+                            className={cn("mt-0.5 size-3.5 shrink-0", TONE_CHECK[standard.tone])}
+                          />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-
-                  <ul className="flex flex-col gap-2.5 border-border border-t pt-5">
-                    {standard.points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex gap-2.5 text-[13px] text-text-secondary leading-relaxed"
-                      >
-                        <Check
-                          className={cn("mt-0.5 size-3.5 shrink-0", TONE_CHECK[standard.tone])}
-                        />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
 
                   <div className="mt-auto flex flex-col gap-3 border-border border-t pt-5">
                     <SmartLink
