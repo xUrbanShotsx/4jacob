@@ -1,4 +1,5 @@
 import { INSIGHTS_MODULES } from "@/lib/insights-modules";
+import { OPERATIONS_MODULES } from "@/lib/operations-modules";
 import { PEOPLE_TRAINING_MODULES } from "@/lib/people-training-modules";
 import { RISK_COMPLIANCE_MODULES } from "@/lib/risk-compliance-modules";
 import { SAFETY_MODULES } from "@/lib/safety-modules";
@@ -27,6 +28,7 @@ export const SITE_ROUTES = [
   ...PEOPLE_TRAINING_MODULES.map((m) => `/docs/people-training/${m.slug}`),
   ...RISK_COMPLIANCE_MODULES.map((m) => `/docs/risk-compliance/${m.slug}`),
   ...INSIGHTS_MODULES.map((m) => `/docs/insights/${m.slug}`),
+  ...OPERATIONS_MODULES.map((m) => `/docs/operations/${m.slug}`),
   "/changelog",
   "/contact",
   "/newsletter",

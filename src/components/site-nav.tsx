@@ -15,17 +15,9 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 type Item = { name: string; href: string };
 type Group = { heading: string; items: Item[] };
 
-/** Each submodule links to its parent topic's card on /docs — the docs page
-    is still being written, so there's no distinct page per submodule yet,
-    but at least the destination is contextual rather than the same generic
-    landing every time. See the matching `slug` in `src/app/docs/page.tsx`. */
-const docs = (names: string[], slug: string): Item[] =>
-  names.map((name) => ({ name, href: `/docs#${slug}` }));
-
 /** Every submodule now has a real brief page — see `src/lib/safety-modules.ts`,
-    `src/lib/people-training-modules.ts`, `src/lib/risk-compliance-modules.ts`
-    and `src/lib/insights-modules.ts`. Operations is the one remaining group
-    still landing on the shared /docs anchor. */
+    `src/lib/people-training-modules.ts`, `src/lib/risk-compliance-modules.ts`,
+    `src/lib/insights-modules.ts` and `src/lib/operations-modules.ts`. */
 const SAFETY_ITEMS: Item[] = [
   { name: "Incidents", href: "/docs/safety/incidents" },
   { name: "Actions", href: "/docs/safety/actions" },
@@ -59,6 +51,13 @@ const INSIGHTS_ITEMS: Item[] = [
   { name: "Dashboards", href: "/docs/insights/dashboards" },
 ];
 
+const OPERATIONS_ITEMS: Item[] = [
+  { name: "Safe work procedures", href: "/docs/operations/safe-work-procedures" },
+  { name: "Site access", href: "/docs/operations/site-access" },
+  { name: "Work planning", href: "/docs/operations/work-planning" },
+  { name: "Defect reporting", href: "/docs/operations/defect-reporting" },
+];
+
 /* ── Solutions taxonomy (modules → submodules) ────────────────────────────── */
 const PRODUCT_GROUPS: Group[] = [
   {
@@ -71,10 +70,7 @@ const PRODUCT_GROUPS: Group[] = [
   },
   {
     heading: "Operations",
-    items: docs(
-      ["Safe work procedures", "Site access", "Work planning", "Defect reporting"],
-      "operations-contractors",
-    ),
+    items: OPERATIONS_ITEMS,
   },
   {
     heading: "Risk & compliance",
