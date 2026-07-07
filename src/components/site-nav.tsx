@@ -22,9 +22,11 @@ type Group = { heading: string; items: Item[] };
 const docs = (names: string[], slug: string): Item[] =>
   names.map((name) => ({ name, href: `/docs#${slug}` }));
 
-/** Safety and People & training have a real brief page per module (unlike the
-    remaining groups, which still land on a shared /docs anchor) — see
-    `src/lib/safety-modules.ts` and `src/lib/people-training-modules.ts`. */
+/** Safety, People & training and Risk & compliance have a real brief page
+    per module (unlike the remaining groups, which still land on a shared
+    /docs anchor) — see `src/lib/safety-modules.ts`,
+    `src/lib/people-training-modules.ts` and
+    `src/lib/risk-compliance-modules.ts`. */
 const SAFETY_ITEMS: Item[] = [
   { name: "Incidents", href: "/docs/safety/incidents" },
   { name: "Actions", href: "/docs/safety/actions" },
@@ -42,6 +44,14 @@ const PEOPLE_TRAINING_ITEMS: Item[] = [
   { name: "Return to work", href: "/docs/people-training/return-to-work" },
   { name: "Courses", href: "/docs/people-training/courses" },
   { name: "Records", href: "/docs/people-training/records" },
+];
+
+const RISK_COMPLIANCE_ITEMS: Item[] = [
+  { name: "Hazard register", href: "/docs/risk-compliance/hazard-register" },
+  { name: "Risk assessments", href: "/docs/risk-compliance/risk-assessments" },
+  { name: "Controls", href: "/docs/risk-compliance/controls" },
+  { name: "Audits", href: "/docs/risk-compliance/audits" },
+  { name: "Evidence", href: "/docs/risk-compliance/evidence" },
 ];
 
 /* ── Solutions taxonomy (modules → submodules) ────────────────────────────── */
@@ -63,10 +73,7 @@ const PRODUCT_GROUPS: Group[] = [
   },
   {
     heading: "Risk & compliance",
-    items: docs(
-      ["Hazard register", "Risk assessments", "Controls", "Audits", "Evidence"],
-      "risk-compliance",
-    ),
+    items: RISK_COMPLIANCE_ITEMS,
   },
   { heading: "Insights", items: docs(["KPIs", "Reports", "Dashboards"], "insights") },
 ];
