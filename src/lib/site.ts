@@ -23,6 +23,7 @@ export const SITE_ROUTES = [
   "/",
   "/about",
   "/pricing",
+  "/blueprints",
   "/docs",
   ...SAFETY_MODULES.map((m) => `/docs/safety/${m.slug}`),
   ...PEOPLE_TRAINING_MODULES.map((m) => `/docs/people-training/${m.slug}`),
