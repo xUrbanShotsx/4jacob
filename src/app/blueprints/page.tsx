@@ -169,7 +169,7 @@ export default function BlueprintsPage() {
               </FadeUp>
 
               {/* Clause map + what's generated */}
-              <div className="mt-10 grid items-start gap-px border border-border bg-border shadow-black/5 shadow-xl lg:grid-cols-5 dark:shadow-black/20">
+              <div className="mt-10 grid items-stretch gap-px border border-border bg-border shadow-black/5 shadow-xl lg:grid-cols-5 dark:shadow-black/20">
                 <FadeUp className={cn("flex bg-bg p-5 sm:p-6 lg:col-span-3", flip && "lg:order-2")}>
                   <div className="flex w-full flex-col overflow-hidden border border-border bg-bg">
                     <div className="flex items-center justify-between gap-2 border-border border-b bg-bg-secondary px-4 py-3">
