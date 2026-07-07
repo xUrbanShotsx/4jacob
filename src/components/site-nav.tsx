@@ -22,8 +22,9 @@ type Group = { heading: string; items: Item[] };
 const docs = (names: string[], slug: string): Item[] =>
   names.map((name) => ({ name, href: `/docs#${slug}` }));
 
-/** Safety has a real brief page per module (unlike the other groups, which
-    still land on a shared /docs anchor) — see `src/lib/safety-modules.ts`. */
+/** Safety and People & training have a real brief page per module (unlike the
+    remaining groups, which still land on a shared /docs anchor) — see
+    `src/lib/safety-modules.ts` and `src/lib/people-training-modules.ts`. */
 const SAFETY_ITEMS: Item[] = [
   { name: "Incidents", href: "/docs/safety/incidents" },
   { name: "Actions", href: "/docs/safety/actions" },
@@ -34,6 +35,15 @@ const SAFETY_ITEMS: Item[] = [
   { name: "Safety inspections", href: "/docs/safety/safety-inspections" },
 ];
 
+const PEOPLE_TRAINING_ITEMS: Item[] = [
+  { name: "Inductions", href: "/docs/people-training/inductions" },
+  { name: "Contractors", href: "/docs/people-training/contractors" },
+  { name: "Health & wellbeing", href: "/docs/people-training/health-wellbeing" },
+  { name: "Return to work", href: "/docs/people-training/return-to-work" },
+  { name: "Courses", href: "/docs/people-training/courses" },
+  { name: "Records", href: "/docs/people-training/records" },
+];
+
 /* ── Solutions taxonomy (modules → submodules) ────────────────────────────── */
 const PRODUCT_GROUPS: Group[] = [
   {
@@ -42,10 +52,7 @@ const PRODUCT_GROUPS: Group[] = [
   },
   {
     heading: "People & training",
-    items: docs(
-      ["Inductions", "Contractors", "Health & wellbeing", "Return to work", "Courses", "Records"],
-      "people-training",
-    ),
+    items: PEOPLE_TRAINING_ITEMS,
   },
   {
     heading: "Operations",
