@@ -22,14 +22,23 @@ type Group = { heading: string; items: Item[] };
 const docs = (names: string[], slug: string): Item[] =>
   names.map((name) => ({ name, href: `/docs#${slug}` }));
 
+/** Safety has a real brief page per module (unlike the other groups, which
+    still land on a shared /docs anchor) — see `src/lib/safety-modules.ts`. */
+const SAFETY_ITEMS: Item[] = [
+  { name: "Incidents", href: "/docs/safety/incidents" },
+  { name: "Actions", href: "/docs/safety/actions" },
+  { name: "Toolbox", href: "/docs/safety/toolbox" },
+  { name: "Prestart", href: "/docs/safety/prestart" },
+  { name: "SWMS", href: "/docs/safety/swms" },
+  { name: "Permits", href: "/docs/safety/permits" },
+  { name: "Safety inspections", href: "/docs/safety/safety-inspections" },
+];
+
 /* ── Solutions taxonomy (modules → submodules) ────────────────────────────── */
 const PRODUCT_GROUPS: Group[] = [
   {
     heading: "Safety",
-    items: docs(
-      ["Incidents", "Actions", "Toolbox", "Prestart", "SWMS", "Permits", "Safety inspections"],
-      "safety",
-    ),
+    items: SAFETY_ITEMS,
   },
   {
     heading: "People & training",

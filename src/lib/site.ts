@@ -1,3 +1,5 @@
+import { SAFETY_MODULES } from "@/lib/safety-modules";
+
 /** Canonical site metadata, reused across SEO metadata, JSON-LD, and the sitemap. */
 export const SITE = {
   name: "Briesa",
@@ -18,6 +20,7 @@ export const SITE_ROUTES = [
   "/about",
   "/pricing",
   "/docs",
+  ...SAFETY_MODULES.map((m) => `/docs/safety/${m.slug}`),
   "/changelog",
   "/contact",
   "/newsletter",
