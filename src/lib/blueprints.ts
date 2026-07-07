@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { BadgeCheck, Leaf, Lock } from "lucide-react";
+import { BadgeCheck, HardHat, Leaf } from "lucide-react";
 import type { Tone } from "@/components/graphs";
 
 /**
@@ -49,17 +49,17 @@ export const BLUEPRINT_STANDARDS: BlueprintStandard[] = [
     ],
   },
   {
-    slug: "iso-27001",
-    code: "ISO 27001",
-    name: "Information security management",
-    icon: Lock,
-    tone: "info",
-    lede: "Information security management system documentation, mapped to how your organisation actually handles data.",
+    slug: "iso-45001",
+    code: "ISO 45001",
+    name: "Occupational health & safety",
+    icon: HardHat,
+    tone: "danger",
+    lede: "Occupational health and safety management system documentation, built from the safety program you already run in Briesa.",
     points: [
-      "Statement of Applicability and risk treatment plan generated from your control environment.",
-      "Information security policies and procedures mapped to Annex A controls.",
-      "Asset register and risk assessment built from your existing data architecture.",
-      "Certification roadmap shows what's ready now and what's still needed to close the gap.",
+      "OH&S policy, objectives and management programs generated from your live safety data.",
+      "Hazard identification and risk assessment register mapped straight to your controls and incidents.",
+      "Worker consultation and participation records, plus legal and other requirements, kept current against Australian WHS law.",
+      "Certification roadmap shows which clauses are ready now and what's still needed to close the gap.",
     ],
   },
 ];

@@ -12,7 +12,7 @@ import { DEMO_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "ISO Blueprints",
   description:
-    "AI-generated, clause-mapped ISO 9001, 14001 and 27001 documentation, built from your live Briesa data.",
+    "AI-generated, clause-mapped ISO 9001, 14001 and 45001 documentation, built from your live Briesa data.",
   alternates: { canonical: "/blueprints" },
 };
 

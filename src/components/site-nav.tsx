@@ -106,7 +106,7 @@ const COMPANY: Item[] = [
 const ISO_TYPES: { code: string; desc: string; href: string }[] = [
   { code: "ISO 9001", desc: "Quality management systems", href: "/blueprints#iso-9001" },
   { code: "ISO 14001", desc: "Environmental management systems", href: "/blueprints#iso-14001" },
-  { code: "ISO 27001", desc: "Information security management", href: "/blueprints#iso-27001" },
+  { code: "ISO 45001", desc: "Occupational health & safety", href: "/blueprints#iso-45001" },
 ];
 
 /* ── Shared hover-open behaviour ──────────────────────────────────────────── */
