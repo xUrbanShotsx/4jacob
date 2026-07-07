@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+/* Briesa design system — see style-guide-v3.1.html.
+   Dark-first, zero radius, monochrome neutrals + a four-color semantic
+   system (signal yellow / trust blue / field green / alert coral),
+   five-level text hierarchy. Tokens are intentionally minimal. */
+
+@custom-variant dark (&:is(.dark *));
+
+:root,
+.light {
+  --bg: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-hover: #ebebeb;
+  --bg-active: #e0e0e0;
+  --bg-canvas: #fafafa;
+
+  --border: #e0e0e0;
+  --border-strong: #d0d0d0;
+  --border-hover: #c0c0c0;
+
+  --text: #171717;
+  --text-secondary: #555555;
+  --text-tertiary: #777777;
+  --text-muted: #999999;
+  --text-placeholder: #aaaaaa;
+
+  --accent-bg: #fff8d6;
+  --accent-border: #ffe680;
+  --accent-bg-hover: #fff2b3;
+  --accent-border-hover: #ffdb4d;
+  --accent-text: #ffd600;
+
+  --destructive-bg: #fdecec;
+  --destructive-border: #f5c2c2;
+  --destructive-bg-hover: #fbdcdc;
+  --destructive-text: #c1374a;
+
+  --badge-blue-bg: #e8f0fe;
+  --badge-blue-text: #1a6ddb;
+  --badge-yellow-bg: #fef3d6;
+  --badge-yellow-text: #b58a1b;
+  --badge-green-bg: #e6f7ed;
+  --badge-green-text: #1a8a4a;
+
+  --status-bg: #f5f5f5;
+  --status-border: #e0e0e0;
+  --status-text: #555555;
+
+  /* Logo inverts the surface so the square always contrasts the page. */
+  --logo-bg: #171717;
+  --logo-mark: #ffffff;
+}
+
+.dark {
+  --bg: #121212;
+  --bg-secondary: #171717;
+  --bg-hover: #1a1a1a;
+  --bg-active: #242424;
+  --bg-canvas: #101010;
+
+  --border: #2e2e2e;
+  --border-strong: #363636;
+  --border-hover: #444444;
+
+  --text: #fafafa;
+  --text-secondary: #b4b4b4;
+  --text-tertiary: #898989;
+  --text-muted: #555555;
+  --text-placeholder: #4d4d4d;
+
+  --accent-bg: #3d3410;
+  --accent-border: #5c4e14;
+  --accent-bg-hover: #4a3f13;
+  --accent-border-hover: #7a6819;
+  --accent-text: #ffd600;
+
+  --destructive-bg: #3a1a1a;
+  --destructive-border: #5a2d2d;
+  --destructive-bg-hover: #4a2222;
+  --destructive-text: #f06060;
+
+  --badge-blue-bg: #1a1f3a;
+  --badge-blue-text: #6ea8ff;
+  --badge-yellow-bg: #2e2a1a;
+  --badge-yellow-text: #e3c55e;
+  --badge-green-bg: #1a3a2a;
+  --badge-green-text: #3ecf8e;
+
+  --status-bg: #171717;
+  --status-border: #2d2d2d;
+  --status-text: #898989;
+
+  --logo-bg: #ffffff;
+  --logo-mark: #171717;
+}
+
+/* Map the tokens used as utilities onto Tailwind's theme. Badge/status/logo
+   colours stay as raw vars (consumed via arbitrary values) to keep this lean. */
+@theme inline {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --radius: 0px;
+
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-hover: var(--bg-hover);
+  --color-bg-active: var(--bg-active);
+  --color-bg-canvas: var(--bg-canvas);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-hover: var(--border-hover);
+
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
+  --color-text-placeholder: var(--text-placeholder);
+
+  --color-accent-bg: var(--accent-bg);
+  --color-accent-border: var(--accent-border);
+  --color-accent-bg-hover: var(--accent-bg-hover);
+  --color-accent-border-hover: var(--accent-border-hover);
+  --color-accent-text: var(--accent-text);
+
+  --color-destructive-bg: var(--destructive-bg);
+  --color-destructive-border: var(--destructive-border);
+  --color-destructive-bg-hover: var(--destructive-bg-hover);
+  --color-destructive-text: var(--destructive-text);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Thin styled scrollbars. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--border-hover);
+  }
+
+  /* Kill the browser autofill highlight on inputs. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text);
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-secondary) inset;
+    caret-color: var(--text);
+    transition: background-color 9999s ease-in-out 0s;
+  }
+}

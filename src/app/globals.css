@@ -1,0 +1,173 @@
+/* Briesa design system: Tailwind + tokens + base, vendored under
+   `src/components/ui`. The first @source scans the vendored components (`.js`)
+   so their utility classes — including hover/dark variants — are generated; the
+   second scans this app's own components. */
+@import "../components/ui/globals.css";
+@source "../components/ui";
+@source "../**/*.{ts,tsx}";
+
+/* ── Marketing-site additions ─────────────────────────────────────────────
+   Layered on top of the @/components/ui design tokens (dark-first, zero-radius,
+   Space Grotesk + IBM Plex Mono, green accent). These add the motion hooks,
+   spacing rhythm and container behaviour the public (web) pages rely on. */
+
+@theme inline {
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration, 40s) linear infinite;
+  /* Typewriter caret blink (waitlist hero headline). */
+  --animate-caret: caret 0.7s step-end infinite;
+}
+
+/* Heading weight + tracking — Space Grotesk reads best at medium weight. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+  }
+}
+
+/* Announcement-banner offset — `--banner-h` stays 0 until <SiteBanner> mounts
+   and sets it, which slides the fixed nav (top-[var(--banner-h)]) and the page
+   content (body padding-top) down to make room for the bar. */
+@layer base {
+  :root {
+    --banner-h: 0rem;
+  }
+  body {
+    padding-top: var(--banner-h);
+  }
+}
+
+/* Section rhythm utilities (mirrors the old marketing layout). */
+@utility section-padding {
+  padding-block: 4rem;
+  @media (width >= 768px) {
+    padding-block: 5rem;
+  }
+  @media (width >= 1024px) {
+    padding-block: 7rem;
+  }
+}
+
+@utility hero-padding {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  @media (width >= 768px) {
+    padding-top: 8rem;
+    padding-bottom: 5rem;
+  }
+  @media (width >= 1024px) {
+    padding-top: 9rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* Centered marketing container — wider than the app's content width. */
+@utility web-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: 80rem;
+}
+
+/* ── Animations ───────────────────────────────────────────────────────────*/
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap, 1rem)));
+  }
+}
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+/* Hard on/off blink for the typewriter caret (paired with step-end timing). */
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Honour reduced-motion: stop the perpetual trust-strip marquee so it sits
+   still rather than scrolling forever. (JS-driven motion is handled by the
+   MotionConfig reducedMotion="user" provider.) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-vertical {
+    animation: none;
+  }
+}
+
+/* Animated grid backdrop used behind hero / CTA surfaces. */
+.grid-backdrop {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 0%, #000 40%, transparent 75%);
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 0%, #000 40%, transparent 75%);
+}
+
+/* ── Theme switch: a "book-open" view-transition wipe ──────────────────────*/
+@keyframes book-open {
+  from {
+    clip-path: inset(0 50% 0 50%);
+  }
+  to {
+    clip-path: inset(0 -5% 0 -5%);
+  }
+}
+html.theme-transition::view-transition-old(root),
+html.theme-transition::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.theme-transition::view-transition-old(root) {
+  z-index: 1;
+}
+html.theme-transition::view-transition-new(root) {
+  z-index: 9999;
+  animation: book-open 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Accessibility: honour reduced-motion globally ─────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint: !important needed to defeat third-party inline animation styles */
+    animation-duration: 0.01ms !important;
+    /* biome-ignore lint: !important needed to defeat third-party inline animation styles */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint: !important needed to defeat third-party inline animation styles */
+    transition-duration: 0.01ms !important;
+    /* biome-ignore lint: !important needed to defeat third-party inline animation styles */
+    scroll-behavior: auto !important;
+  }
+
+  /* Motion's `reducedMotion="user"` config is meant to snap whileInView
+     reveals straight to their visible end state, but the scroll-triggered
+     variants (FadeUp/Reveal/Stagger children, see motion.tsx) can be left
+     stuck at their hidden `opacity: 0` initial style if the observer never
+     resolves. Force the reveal targets to their resting state directly so
+     reduced-motion visitors never lose content. */
+  .motion-reveal {
+    /* biome-ignore lint: !important needed to override inline styles set by motion/react */
+    opacity: 1 !important;
+    /* biome-ignore lint: !important needed to override inline styles set by motion/react */
+    transform: none !important;
+    /* biome-ignore lint: !important needed to override inline styles set by motion/react */
+    filter: none !important;
+  }
+}

@@ -1,0 +1,6 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+/** Briesa square mark (a "B" with a lightning-bolt cutout). Inverts across
+ *  themes via `--logo-bg` (square) and `--logo-mark` (glyph). */
+export function Logo({ size = 32, ...props }) {
+    return (_jsxs("svg", { width: size, height: size, viewBox: "0 0 1500 1500", fill: "none", xmlns: "http://www.w3.org/2000/svg", role: "img", "aria-label": "Briesa", ...props, children: [_jsx("rect", { width: "1500", height: "1500", fill: "var(--logo-bg)" }), _jsx("path", { fillRule: "evenodd", fill: "var(--logo-mark)", d: "M 951.882812 853.082031 C 951.882812 801.5 921.914062 765.289062 879.617188 749.839844 C 864.402344 744.296875 847.699219 741.410156 830.140625 741.410156 L 806.339844 771.066406 L 663.140625 949.460938 L 665.011719 848.089844 C 666.027344 792.839844 646.988281 763.105469 591.03125 763.574219 L 556.695312 763.808594 L 716.597656 549.515625 L 716.988281 673.671875 C 717.144531 714.644531 738.136719 739.226562 780.976562 741.410156 C 837.710938 741.410156 884.066406 694.976562 884.066406 638.324219 C 884.066406 581.589844 837.710938 535.234375 780.976562 535.234375 L 548.113281 535.234375 L 548.113281 964.757812 L 840.210938 964.757812 C 901.625 964.757812 951.882812 914.5 951.882812 853.082031 Z" })] }));
+}
